@@ -1,34 +1,51 @@
 import os
 import random
 import re
+from time import sleep
+from emoji import emojize
 
 os.system('cls' if os.name=='nt' else 'clear')
-while (1 < 2):
-    print("\n")
-    print("If you don't know the rules, input 'Rules'")    
-    
+
+play = 'Y'
+
+while play == 'Y':
+
+    #initialize the program with some color and rules 
+    print(emojize('''\033[31m------JOKENPÔ------\033[m
+Chose Your Yeapon:
+[ R ] Rock 👊
+[ P ] Paper 🖐️
+[ S ] Scissors ✌️
+[ L ] Lizard 🦎
+[ K ] Spock 🖖''', use_aliases=True))
+    print("Rules: ")
+    print("Scissors cuts paper, paper covers rock, rock crushes lizard, lizard poisons Spock, Spock smashes scissors, scissors decapitates lizard, lizard eats paper, paper disproves Spock, Spock vaporizes rock, and as it always has, rock crushes scissors.")
+
     # ask for input from user
-    userChoice = input("Choose your weapon: [R]ock, [P]aper, [S]cissors, [L]izard, Spoc[K]: ")
-    
-    #check for match expressions input from user, with "re.match"
+    userChoice = input("Your choice: ")
+
+    #check for match expressions input from user area correct, with "re.match"
     if not re.match("[SsRrPpLlKk]", userChoice):
         print("Please, chose a letter: ")
         print("[R]ock, [S]cissors, [P]aper, [L]izard, Spoc[K]")
         continue 
 
-    if re.match("[Rules, rules]", userChoice):
-        print("Scissors cuts paper, paper covers rock, rock crushes lizard, lizard poisons Spock, Spock smashes scissors, scissors decapitates lizard, lizard eats paper, paper disproves Spock, Spock vaporizes rock, and as it always has, rock crushes scissors.")
-        break 
-
-    #Echo the users choice, just to check if is correct
-    print("You chose " + userChoice)
-
+    # JO...KEN...PO... timer. Just for show off.
+    print('\033[31mJO\033[m')
+    sleep(.3)
+    print('\033[31mKEN\033[m')
+    sleep(.3)
+    print('\033[31mPÔ!\033[m\n')
+    
     #provide the program with the possible choices
     choices = ['R', 'P', 'S', 'L', 'K']
 
     #generate a random choice for the program and print it 
     programChoice = random.choice(choices)
-    print("I chose: " + programChoice)
+
+    #print both results to compare    
+    print("You chose: " + userChoice)
+    print(f"I chose: {programChoice}\n")
 
     #results
     if programChoice == str.upper(userChoice):
@@ -58,8 +75,10 @@ while (1 < 2):
         continue
     elif programChoice == 'R' and userChoice.upper() == 'S': 
         print("Rock crushes scissors, I win!") 
-        continue 
-    
+        continue     
     else:
-        print("You win!") 
-    break
+        print("You win!")
+        play_again = str(input('\nDo you want to play Again?' '[Y/N] ')).upper().strip()
+        if play_again == 'N':
+            break
+    
